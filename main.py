@@ -2,6 +2,7 @@ import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
 from player import Player
+
 def main():
     pygame.init()
     __clock = pygame.time.Clock()
@@ -10,6 +11,10 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     version = pygame.version.ver
     game_started = True
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
 
     #Player object
     x = SCREEN_WIDTH / 2
@@ -23,9 +28,10 @@ def main():
                 return
         screen.fill("black")
 
-        #Player rendering
-        player.update(dt)
-        player.draw(screen)
+        #Object rendering
+        updatable.update(dt)
+        for drawing in drawable:
+            drawing.draw(screen)
 
         pygame.display.flip()
 
