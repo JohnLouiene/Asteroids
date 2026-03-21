@@ -51,6 +51,9 @@ def main():
                 print("Game over!")
                 print(f"Score: {time_elapsed:.2f} seconds")
                 sys.exit()
+            for shot in shots:
+                if shot.collides_with(asteroid):
+                    asteroid.split()
                 
         pygame.display.flip()
 
